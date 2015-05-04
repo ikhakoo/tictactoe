@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<table> 
+		<tr>
+			<td id="0"></td>
+			<td id="1"></td>
+			<td id="2"></td>
+		</tr>
+		<tr>
+			<td id="3"></td>
+			<td id="4"></td>
+			<td id="5"></td>
+		</tr>
+		<tr>
+			<td id="6"></td>
+			<td id="7"></td>
+			<td id="8"></td>
+		</tr>
+	</table>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script>
+		var count = 0
+		
+		$('td').on('click', function (){
+		 if(count % 2 === 0){
+			$(this).text("X");
+		} else {
+			$(this).text("O");
+		}
+			count++
+			checkBoard();
+		});
+
+		function checkBoard(){
+
+      var wins = [[$("#0"),$("#1"),$("#2")], [$("#3"),$("#4"),$("#5")], [$("#6"),$("#7"),$("#8")], [$("#0"),$("#3"),$("#6")], [$("#1"),$("#4"),$("#7")], [$("#2"),$("#5"),$("#8")], [$("#0"),$("#4"),$("#8")], [$("#6"),$("#4"),$("#2")]] 
+
+    for (var i=0; i<wins.length; i++) {
+        var w = wins[i];
+        var checkXwin = w[0].text() == "X" && w[1].text() == "X" && w[2].text() == "X";
+        var checkOwin = w[0].text() == "O" && w[1].text() == "O" && w[2].text() == "O";
+        if (checkXwin) {
+            console.log("X");
+            return "X Wins!";
+        } else if (checkOwin) {
+            console.log("O");
+            return "O Wins!";
+        }
+    }
+  }
+
+		</script>
+</body>
+</html>
+
