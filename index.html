@@ -26,37 +26,57 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script>
-		var count = 0
-		
-		$('td').on('click', function (){
-		 if(count % 2 === 0){
-			$(this).text("X");
-		} else {
-			$(this).text("O");
+		var count;
+
+		function initialize() {
+			count = 0
+			
+			$('td').text('')
+
+			$('td').on('click', function (){
+				$(this).off('click')
+			 	if(count % 2 === 0){
+					$(this).text("X");
+				} else {
+					$(this).text("O");
+				}
+				checkBoard();
+				count++
+			});
 		}
-			count++
-			checkBoard();
-		});
+
+		function game_finished(message) {
+			alert(message)
+			initialize()
+		}
 
 		function checkBoard(){
 
       var wins = [[$("#0"),$("#1"),$("#2")], [$("#3"),$("#4"),$("#5")], [$("#6"),$("#7"),$("#8")], [$("#0"),$("#3"),$("#6")], [$("#1"),$("#4"),$("#7")], [$("#2"),$("#5"),$("#8")], [$("#0"),$("#4"),$("#8")], [$("#6"),$("#4"),$("#2")]] 
 
-    for (var i=0; i<wins.length; i++) {
+    	for (var i=0; i<wins.length; i++) {
         var w = wins[i];
         var checkXwin = w[0].text() == "X" && w[1].text() == "X" && w[2].text() == "X";
         var checkOwin = w[0].text() == "O" && w[1].text() == "O" && w[2].text() == "O";
         if (checkXwin) {
             console.log("X");
-            return "X Wins!";
+            game_finished("X Wins!");
+            break;
         } else if (checkOwin) {
             console.log("O");
-            return "O Wins!";
+            game_finished("O Wins!");
+            break;
         }
-    }
-  }
+    	}
+    	if (count === 9){
+        		console.log('draw');
+        		game_finished("DRAW!"); 
+        }
+  	}
 
-		</script>
+  	initialize()
+
+	</script>
 </body>
 </html>
 
